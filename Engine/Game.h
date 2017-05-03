@@ -27,6 +27,7 @@
 #include <random>
 #include "Text.h"
 #include <chrono>
+#include "Board.h"
 
 
 class Game
@@ -64,6 +65,7 @@ private:
 	float durationSecond=0.0f;
 
 	Text nr,text;
+	Board brd;
 
 	int test = 0;
 	int x = 1, y = 1;
