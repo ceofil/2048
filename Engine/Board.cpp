@@ -9,8 +9,8 @@ Board::Board(Graphics & gfx, Text& txt, int xboard_in, int yboard_in, int cellWi
 	cellWidth(cellWidth_in),
 	cellHeight(cellHeight_in)
 {
-	for (int i = 0; i < ncol; i++) {
-		for (int j = 0; j < nrow; j++) {
+	for (int i = 0; i < nrow; i++) {
+		for (int j = 0; j < ncol; j++) {
 			numbers[i][j].value = i*10+j;
 		}
 	}
