@@ -30,11 +30,8 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	rng(rd()),
 	xrange(0, gfx.ScreenWidth - 30),
-	yrange(0, gfx.ScreenHeight - 30),
-	rgbrange(0,255),
-	nr(gfx,25,50,15,15,50,7),
-	text(gfx, 25, 300, 7, 7, 50, 7),
-	brd(gfx,100,100,20,20,4,4)
+	text(gfx, 100, 100, txtrez, txtrez, 50, 7),
+	brd(gfx,text,100,100,cellsize,cellsize)
 {	
 }
 
@@ -55,6 +52,7 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	brd.DrawGrid(1, Colors::White);
+	brd.DrawNR(text, Colors::White);
 
 
 
