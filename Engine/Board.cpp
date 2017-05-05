@@ -34,151 +34,157 @@ void Board::Update(Keyboard & kbd)
 		cooldown = kbd.KeyIsPressed(VK_UP) || kbd.KeyIsPressed(VK_DOWN) || kbd.KeyIsPressed(VK_LEFT) || kbd.KeyIsPressed(VK_RIGHT);
 	}
 	else {
-		bool test = false;
+		bool test = true;
 		if (kbd.KeyIsPressed(VK_UP)) {
-				cooldown = true;
-				for (int j = 0; j < ncol; j++) {
-					int k = -1;
-					for (int i = 0; i < nrow; i++) {
-						if (numbers[i][j].value != 0) {
+			test = false;
+			cooldown = true;
+			for (int j = 0; j < ncol; j++) {
+				int k = -1;
+				for (int i = 0; i < nrow; i++) {
+					if (numbers[i][j].value != 0) {
 							
-							std::swap(numbers[i][j], numbers[++k][j]);
-						}
-					}
-					for (int i = 0; i < nrow - 1; i++) {
-						if (numbers[i][j].value == numbers[i + 1][j].value) {
-							numbers[i][j].value *= 2;
-							numbers[i][j].clr++;
-							numbers[i + 1][j].value = 0;
-							numbers[i + 1][j].clr = 0;
-						}
-					}
-					k = -1;
-					for (int i = 0; i < nrow; i++) {
-						if (numbers[i][j].value != 0) {
-							
-							std::swap(numbers[i][j], numbers[++k][j]);
-						}
+						std::swap(numbers[i][j], numbers[++k][j]);
 					}
 				}
-				for (int i = nrow - 1; i >= 0; i--) {
-					if (CheckRow(i)) {
-						spawnOnRow(i);
-						test = true;
-						break;
+				for (int i = 0; i < nrow - 1; i++) {
+					if (numbers[i][j].value == numbers[i + 1][j].value) {
+						numbers[i][j].value *= 2;
+						numbers[i][j].clr++;
+						numbers[i + 1][j].value = 0;
+						numbers[i + 1][j].clr = 0;
 					}
 				}
+				k = -1;
+				for (int i = 0; i < nrow; i++) {
+					if (numbers[i][j].value != 0) {
+							
+						std::swap(numbers[i][j], numbers[++k][j]);
+					}
+				}
+			}
+			for (int i = nrow - 1; i >= 0; i--) {
+				if (CheckRow(i)) {
+					spawnOnRow(i);
+					test = true;
+					break;
+				}
+			}
 			
 		}
 		else if (kbd.KeyIsPressed(VK_DOWN)) {
-				cooldown = true;
-				////////
+			cooldown = true;
+			test = false;
+			////////
 
-				for (int j = 0; j < ncol; j++) {
-					int k = nrow;
-					for (int i = nrow - 1; i >= 0; i--) {
-						if (numbers[i][j].value != 0) {
-							std::swap(numbers[i][j], numbers[--k][j]);
-						}
-					}
-					for (int i = nrow - 1; i > 0; i--) {
-						if (numbers[i][j].value == numbers[i - 1][j].value) {
-							numbers[i][j].value *= 2;
-							numbers[i][j].clr++;
-							numbers[i - 1][j].value = 0;
-							numbers[i - 1][j].clr = 0;
-						}
-					}
-					k = nrow;
-					for (int i = nrow - 1; i >= 0; i--) {
-						if (numbers[i][j].value != 0) {
-							std::swap(numbers[i][j], numbers[--k][j]);
-						}
+			for (int j = 0; j < ncol; j++) {
+				int k = nrow;
+				for (int i = nrow - 1; i >= 0; i--) {
+					if (numbers[i][j].value != 0) {
+						std::swap(numbers[i][j], numbers[--k][j]);
 					}
 				}
-
-				////////
-				for (int i = 0; i < nrow; i++) {
-					if (CheckRow(i)) {
-						spawnOnRow(i);
-						test = true;
-						break;
+				for (int i = nrow - 1; i > 0; i--) {
+					if (numbers[i][j].value == numbers[i - 1][j].value) {
+						numbers[i][j].value *= 2;
+						numbers[i][j].clr++;
+						numbers[i - 1][j].value = 0;
+						numbers[i - 1][j].clr = 0;
 					}
 				}
+				k = nrow;
+				for (int i = nrow - 1; i >= 0; i--) {
+					if (numbers[i][j].value != 0) {
+						std::swap(numbers[i][j], numbers[--k][j]);
+					}
+				}
+			}
+
+			////////
+			for (int i = 0; i < nrow; i++) {
+				if (CheckRow(i)) {
+					spawnOnRow(i);
+					test = true;
+					break;
+				}
+			}
 		}
 		else if (kbd.KeyIsPressed(VK_LEFT)) {
-				cooldown = true;
-				////
-				for (int i = 0; i < nrow; i++) {
-					int k = -1;
-					for (int j = 0; j < ncol; j++) {
-						if (numbers[i][j].value != 0) {
-							std::swap(numbers[i][j], numbers[i][++k]);
-						}
-					}
-
-					for (int j = 0; j < ncol - 1; j++) {
-						if (numbers[i][j + 1].value == numbers[i][j].value) {
-							numbers[i][j].value *= 2;
-							numbers[i][j].clr++;
-							numbers[i][j + 1].value = 0;
-							numbers[i][j + 1].clr = 0;
-						}
-					}
-
-					k = -1;
-					for (int j = 0; j < ncol; j++) {
-						if (numbers[i][j].value != 0) {
-							std::swap(numbers[i][j], numbers[i][++k]);
-						}
+			cooldown = true;
+			test = false;
+			////
+			for (int i = 0; i < nrow; i++) {
+				int k = -1;
+				for (int j = 0; j < ncol; j++) {
+					if (numbers[i][j].value != 0) {
+						std::swap(numbers[i][j], numbers[i][++k]);
 					}
 				}
-				////
-				for (int j = ncol - 1; j >= 0; j--) {
-					if (CheckCol(j)) {
-						spawnOnCol(j);
-						test = true;
-						break;
+
+				for (int j = 0; j < ncol - 1; j++) {
+					if (numbers[i][j + 1].value == numbers[i][j].value) {
+						numbers[i][j].value *= 2;
+						numbers[i][j].clr++;
+						numbers[i][j + 1].value = 0;
+						numbers[i][j + 1].clr = 0;
 					}
 				}
+
+				k = -1;
+				for (int j = 0; j < ncol; j++) {
+					if (numbers[i][j].value != 0) {
+						std::swap(numbers[i][j], numbers[i][++k]);
+					}
+				}
+			}
+			////
+			for (int j = ncol - 1; j >= 0; j--) {
+				if (CheckCol(j)) {
+					spawnOnCol(j);
+					test = true;
+					break;
+				}
+			}
 			
 		}
 		else if (kbd.KeyIsPressed(VK_RIGHT)) {
-				cooldown = true;
-				////
-				for (int i = 0; i < nrow; i++) {
-					int k = ncol;
-					for (int j = ncol - 1; j >= 0; j--) {
-						if (numbers[i][j].value != 0) {
-							std::swap(numbers[i][j], numbers[i][--k]);
-						}
-					}
-
-					for (int j = ncol - 1; j > 0; j--) {
-						if (numbers[i][j - 1].value == numbers[i][j].value) {
-							numbers[i][j].value *= 2;
-							numbers[i][j].clr++;
-							numbers[i][j - 1].value = 0;
-							numbers[i][j - 1].clr = 0;
-						}
-					}
-
-					k = ncol;
-					for (int j = ncol - 1; j >= 0; j--) {
-						if (numbers[i][j].value != 0) {
-							std::swap(numbers[i][j], numbers[i][--k]);
-						}
+			cooldown = true;
+			test = false;
+			////
+			for (int i = 0; i < nrow; i++) {
+				int k = ncol;
+				for (int j = ncol - 1; j >= 0; j--) {
+					if (numbers[i][j].value != 0) {
+						std::swap(numbers[i][j], numbers[i][--k]);
 					}
 				}
-				////
-				for (int j = 0; j < ncol; j++) {
-					if (CheckCol(j)) {
-						spawnOnCol(j);
-						test = true;
-						break;
+
+				for (int j = ncol - 1; j > 0; j--) {
+					if (numbers[i][j - 1].value == numbers[i][j].value) {
+						numbers[i][j].value *= 2;
+						numbers[i][j].clr++;
+						numbers[i][j - 1].value = 0;
+						numbers[i][j - 1].clr = 0;
 					}
 				}
+
+				k = ncol;
+				for (int j = ncol - 1; j >= 0; j--) {
+					if (numbers[i][j].value != 0) {
+						std::swap(numbers[i][j], numbers[i][--k]);
+					}
+				}
+			}
+			////
+			for (int j = 0; j < ncol; j++) {
+				if (CheckCol(j)) {
+					spawnOnCol(j);
+					test = true;
+					break;
+				}
+			}
 		}
+
+		gameover = !test;
 
 	}
 }
