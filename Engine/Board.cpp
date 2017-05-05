@@ -81,10 +81,7 @@ void Board::Update(Keyboard & kbd)
 					int k = nrow;
 					for (int i = nrow - 1; i >= 0; i--) {
 						if (numbers[i][j].value != 0) {
-							numbers[--k][j].value = numbers[i][j].value;
-							if (k != i) {
-								numbers[i][j].value = 0;
-							}
+							std::swap(numbers[i][j], numbers[--k][j]);
 						}
 					}
 					for (int i = nrow - 1; i > 0; i--) {
@@ -96,10 +93,7 @@ void Board::Update(Keyboard & kbd)
 					k = nrow;
 					for (int i = nrow - 1; i >= 0; i--) {
 						if (numbers[i][j].value != 0) {
-							numbers[--k][j].value = numbers[i][j].value;
-							if (k != i) {
-								numbers[i][j].value = 0;
-							}
+							std::swap(numbers[i][j], numbers[--k][j]);
 						}
 					}
 				}
@@ -123,10 +117,7 @@ void Board::Update(Keyboard & kbd)
 					int k = -1;
 					for (int j = 0; j < ncol; j++) {
 						if (numbers[i][j].value != 0) {
-							numbers[i][++k].value = numbers[i][j].value;
-							if (j != k) {
-								numbers[i][j].value = 0;
-							}
+							std::swap(numbers[i][j], numbers[i][++k]);
 						}
 					}
 
@@ -140,10 +131,7 @@ void Board::Update(Keyboard & kbd)
 					k = -1;
 					for (int j = 0; j < ncol; j++) {
 						if (numbers[i][j].value != 0) {
-							numbers[i][++k].value = numbers[i][j].value;
-							if (j != k) {
-								numbers[i][j].value = 0;
-							}
+							std::swap(numbers[i][j], numbers[i][++k]);
 						}
 					}
 				}
@@ -166,10 +154,7 @@ void Board::Update(Keyboard & kbd)
 					int k = ncol;
 					for (int j = ncol - 1; j >= 0; j--) {
 						if (numbers[i][j].value != 0) {
-							numbers[i][--k].value = numbers[i][j].value;
-							if (j != k) {
-								numbers[i][j].value = 0;
-							}
+							std::swap(numbers[i][j], numbers[i][--k]);
 						}
 					}
 
@@ -183,10 +168,7 @@ void Board::Update(Keyboard & kbd)
 					k = ncol;
 					for (int j = ncol - 1; j >= 0; j--) {
 						if (numbers[i][j].value != 0) {
-							numbers[i][--k].value = numbers[i][j].value;
-							if (j != k) {
-								numbers[i][j].value = 0;
-							}
+							std::swap(numbers[i][j], numbers[i][--k]);
 						}
 					}
 				}
