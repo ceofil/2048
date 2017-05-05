@@ -45,6 +45,9 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	
+
+	brd.Update(wnd.kbd);
 }
 
 
@@ -53,10 +56,6 @@ void Game::ComposeFrame()
 {
 	brd.DrawGrid(1, Colors::White);
 	brd.DrawNR(text, Colors::White);
-
-
-
-
 }
 
 

@@ -61,6 +61,8 @@ private:
 	Text text;
 	Board brd;
 
+	bool cooldown = false;
+
 	/********************************/
 };
 
