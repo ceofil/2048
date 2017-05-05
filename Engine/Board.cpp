@@ -17,9 +17,15 @@ Board::Board(Graphics & gfx, Text& txt, int xboard_in, int yboard_in, int cellWi
 			numbers[i][j].value = 0;
 		}
 	}
+	int i1 = rowrange(rng);
+	int j1 = colrange(rng);
+	numbers[i1][j1].value = 2;
+	numbers[i1][j1].clr = 1;
 	
-	numbers[rowrange(rng)][colrange(rng)].value = 2;
-	numbers[rowrange(rng)][colrange(rng)].value = 2;
+	i1 = rowrange(rng);
+	j1 = colrange(rng);
+	numbers[i1][j1].value = 2;
+	numbers[i1][j1].clr = 1;
 }
 void Board::Update(Keyboard & kbd)
 {
@@ -47,7 +53,9 @@ void Board::Update(Keyboard & kbd)
 					for (int i = 0; i < nrow - 1; i++) {
 						if (numbers[i][j].value == numbers[i + 1][j].value) {
 							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
 							numbers[i + 1][j].value = 0;
+							numbers[i + 1][j].clr = 0;
 						}
 					}
 					k = -1;
@@ -87,7 +95,9 @@ void Board::Update(Keyboard & kbd)
 					for (int i = nrow - 1; i > 0; i--) {
 						if (numbers[i][j].value == numbers[i - 1][j].value) {
 							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
 							numbers[i - 1][j].value = 0;
+							numbers[i - 1][j].clr = 0;
 						}
 					}
 					k = nrow;
@@ -124,7 +134,9 @@ void Board::Update(Keyboard & kbd)
 					for (int j = 0; j < ncol - 1; j++) {
 						if (numbers[i][j + 1].value == numbers[i][j].value) {
 							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
 							numbers[i][j + 1].value = 0;
+							numbers[i][j + 1].clr = 0;
 						}
 					}
 
@@ -161,7 +173,9 @@ void Board::Update(Keyboard & kbd)
 					for (int j = ncol - 1; j > 0; j--) {
 						if (numbers[i][j - 1].value == numbers[i][j].value) {
 							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
 							numbers[i][j - 1].value = 0;
+							numbers[i][j - 1].clr = 0;
 						}
 					}
 
@@ -256,6 +270,7 @@ void Board::spawnOnRow(int i)
 		int nr = colrange(rng);
 		if(numbers[i][nr].value==0){
 			numbers[i][nr].value = 2;
+			numbers[i][nr].clr = 1;
 			spawned = true;
 		}
 	}
@@ -267,6 +282,7 @@ void Board::spawnOnCol(int j)
 		int nr = colrange(rng);
 		if (numbers[nr][j].value == 0) {
 			numbers[nr][j].value = 2;
+			numbers[nr][j].clr = 1;
 			spawned = true;
 		}
 	}
