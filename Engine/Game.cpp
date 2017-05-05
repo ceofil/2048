@@ -54,8 +54,9 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	brd.DrawGrid(1, Colors::White);
+
 	brd.DrawNR(text, Colors::White);
+	brd.DrawGrid(5, Colors::White);
 }
 
 
