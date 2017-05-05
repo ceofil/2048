@@ -34,19 +34,14 @@ void Board::Update(Keyboard & kbd)
 		cooldown = kbd.KeyIsPressed(VK_UP) || kbd.KeyIsPressed(VK_DOWN) || kbd.KeyIsPressed(VK_LEFT) || kbd.KeyIsPressed(VK_RIGHT);
 	}
 	else {
+		bool test = false;
 		if (kbd.KeyIsPressed(VK_UP)) {
-			if (!cooldown) {
-				bool test = false;
 				cooldown = true;
 				for (int j = 0; j < ncol; j++) {
 					int k = -1;
 					for (int i = 0; i < nrow; i++) {
 						if (numbers[i][j].value != 0) {
-							/*
-							numbers[++k][j].value = numbers[i][j].value;
-							if (k != i) {
-								numbers[i][j].value = 0;
-							}*/
+							
 							std::swap(numbers[i][j], numbers[++k][j]);
 						}
 					}
@@ -61,11 +56,7 @@ void Board::Update(Keyboard & kbd)
 					k = -1;
 					for (int i = 0; i < nrow; i++) {
 						if (numbers[i][j].value != 0) {
-							/*
-							numbers[++k][j].value = numbers[i][j].value;
-							if (k != i) {
-							numbers[i][j].value = 0;
-							}*/
+							
 							std::swap(numbers[i][j], numbers[++k][j]);
 						}
 					}
@@ -77,11 +68,9 @@ void Board::Update(Keyboard & kbd)
 						break;
 					}
 				}
-			}
+			
 		}
 		else if (kbd.KeyIsPressed(VK_DOWN)) {
-			if (!cooldown) {
-				bool test = false;
 				cooldown = true;
 				////////
 
@@ -116,11 +105,8 @@ void Board::Update(Keyboard & kbd)
 						break;
 					}
 				}
-			}
 		}
 		else if (kbd.KeyIsPressed(VK_LEFT)) {
-			if (!cooldown) {
-				bool test = false;
 				cooldown = true;
 				////
 				for (int i = 0; i < nrow; i++) {
@@ -155,11 +141,9 @@ void Board::Update(Keyboard & kbd)
 						break;
 					}
 				}
-			}
+			
 		}
 		else if (kbd.KeyIsPressed(VK_RIGHT)) {
-			if (!cooldown) {
-				bool test = false;
 				cooldown = true;
 				////
 				for (int i = 0; i < nrow; i++) {
@@ -194,17 +178,9 @@ void Board::Update(Keyboard & kbd)
 						break;
 					}
 				}
-			}
 		}
 
-		for (int i = 0; i < nrow; i++) {
-			for (int j = 0; j < ncol; j++) {
-				//
-			}
-		}
 	}
-
-
 }
 void Board::DrawCell(int x, int y, Color c)
 {
