@@ -54,10 +54,11 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-
-	brd.DrawNR(text, Colors::White);
-	brd.DrawGrid(5, Colors::White);
-	if (brd.gameover) {
+	if (!brd.gameover) {
+		brd.DrawNR(text, Colors::White);
+		brd.DrawGrid(5, Colors::White);
+	}
+	else{
 		gfx.DrawCircle(400, 300, 100, Colors::Red);
 	}
 }

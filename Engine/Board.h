@@ -20,6 +20,8 @@ public:
 	static constexpr int textratio = 25; //a digit its 4 cells wide + 1 cell spacing so 25 text cells allows 5 digits per board cell 
 	bool cooldown = false;
 	bool gameover = false;
+	int score = 0;
+	int highscore = 0;
 	static constexpr int colors[15][3] = {
 		{ 145,145,145 }, //0
 		{ 215, 210, 200 }, //2
@@ -39,7 +41,6 @@ private:
 	public:
 		Color cl;
 		int clr=0;
-		
 		int value = 0;
 	};
 private:

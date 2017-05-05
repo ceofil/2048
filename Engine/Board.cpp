@@ -50,6 +50,7 @@ void Board::Update(Keyboard & kbd)
 					if (numbers[i][j].value == numbers[i + 1][j].value) {
 						numbers[i][j].value *= 2;
 						numbers[i][j].clr++;
+						score += numbers[i][j].value;
 						numbers[i + 1][j].value = 0;
 						numbers[i + 1][j].clr = 0;
 					}
@@ -87,6 +88,7 @@ void Board::Update(Keyboard & kbd)
 					if (numbers[i][j].value == numbers[i - 1][j].value) {
 						numbers[i][j].value *= 2;
 						numbers[i][j].clr++;
+						score += numbers[i][j].value;
 						numbers[i - 1][j].value = 0;
 						numbers[i - 1][j].clr = 0;
 					}
@@ -124,6 +126,7 @@ void Board::Update(Keyboard & kbd)
 					if (numbers[i][j + 1].value == numbers[i][j].value) {
 						numbers[i][j].value *= 2;
 						numbers[i][j].clr++;
+						score += numbers[i][j].value;
 						numbers[i][j + 1].value = 0;
 						numbers[i][j + 1].clr = 0;
 					}
@@ -162,6 +165,7 @@ void Board::Update(Keyboard & kbd)
 					if (numbers[i][j - 1].value == numbers[i][j].value) {
 						numbers[i][j].value *= 2;
 						numbers[i][j].clr++;
+						score += numbers[i][j].value;
 						numbers[i][j - 1].value = 0;
 						numbers[i][j - 1].clr = 0;
 					}
