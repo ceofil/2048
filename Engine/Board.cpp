@@ -29,170 +29,170 @@ Board::Board(Graphics & gfx, Text& txt, int xboard_in, int yboard_in, int cellWi
 }
 void Board::Update(Keyboard & kbd)
 {
-
-	if (cooldown) {
-		cooldown = kbd.KeyIsPressed(VK_UP) || kbd.KeyIsPressed(VK_DOWN) || kbd.KeyIsPressed(VK_LEFT) || kbd.KeyIsPressed(VK_RIGHT);
-	}
-	else {
-		bool test = true;
-		if (kbd.KeyIsPressed(VK_UP)) {
-			test = false;
-			cooldown = true;
-			for (int j = 0; j < ncol; j++) {
-				int k = -1;
-				for (int i = 0; i < nrow; i++) {
-					if (numbers[i][j].value != 0) {
-							
-						std::swap(numbers[i][j], numbers[++k][j]);
-					}
-				}
-				for (int i = 0; i < nrow - 1; i++) {
-					if (numbers[i][j].value == numbers[i + 1][j].value) {
-						numbers[i][j].value *= 2;
-						numbers[i][j].clr++;
-						score += numbers[i][j].value;
-						numbers[i + 1][j].value = 0;
-						numbers[i + 1][j].clr = 0;
-					}
-				}
-				k = -1;
-				for (int i = 0; i < nrow; i++) {
-					if (numbers[i][j].value != 0) {
-							
-						std::swap(numbers[i][j], numbers[++k][j]);
-					}
-				}
-			}
-			for (int i = nrow - 1; i >= 0; i--) {
-				if (CheckRow(i)) {
-					spawnOnRow(i);
-					test = true;
-					break;
-				}
-			}
-			
+	if (!gameover) {
+		if (cooldown) {
+			cooldown = kbd.KeyIsPressed(VK_UP) || kbd.KeyIsPressed(VK_DOWN) || kbd.KeyIsPressed(VK_LEFT) || kbd.KeyIsPressed(VK_RIGHT);
 		}
-		else if (kbd.KeyIsPressed(VK_DOWN)) {
-			cooldown = true;
-			test = false;
-			////////
-
-			for (int j = 0; j < ncol; j++) {
-				int k = nrow;
-				for (int i = nrow - 1; i >= 0; i--) {
-					if (numbers[i][j].value != 0) {
-						std::swap(numbers[i][j], numbers[--k][j]);
-					}
-				}
-				for (int i = nrow - 1; i > 0; i--) {
-					if (numbers[i][j].value == numbers[i - 1][j].value) {
-						numbers[i][j].value *= 2;
-						numbers[i][j].clr++;
-						score += numbers[i][j].value;
-						numbers[i - 1][j].value = 0;
-						numbers[i - 1][j].clr = 0;
-					}
-				}
-				k = nrow;
-				for (int i = nrow - 1; i >= 0; i--) {
-					if (numbers[i][j].value != 0) {
-						std::swap(numbers[i][j], numbers[--k][j]);
-					}
-				}
-			}
-
-			////////
-			for (int i = 0; i < nrow; i++) {
-				if (CheckRow(i)) {
-					spawnOnRow(i);
-					test = true;
-					break;
-				}
-			}
-		}
-		else if (kbd.KeyIsPressed(VK_LEFT)) {
-			cooldown = true;
-			test = false;
-			////
-			for (int i = 0; i < nrow; i++) {
-				int k = -1;
+		else {
+			bool test = true;
+			if (kbd.KeyIsPressed(VK_UP)) {
+				test = false;
+				cooldown = true;
 				for (int j = 0; j < ncol; j++) {
-					if (numbers[i][j].value != 0) {
-						std::swap(numbers[i][j], numbers[i][++k]);
+					int k = -1;
+					for (int i = 0; i < nrow; i++) {
+						if (numbers[i][j].value != 0) {
+
+							std::swap(numbers[i][j], numbers[++k][j]);
+						}
+					}
+					for (int i = 0; i < nrow - 1; i++) {
+						if (numbers[i][j].value == numbers[i + 1][j].value) {
+							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
+							score += numbers[i][j].value;
+							numbers[i + 1][j].value = 0;
+							numbers[i + 1][j].clr = 0;
+						}
+					}
+					k = -1;
+					for (int i = 0; i < nrow; i++) {
+						if (numbers[i][j].value != 0) {
+
+							std::swap(numbers[i][j], numbers[++k][j]);
+						}
+					}
+				}
+				for (int i = nrow - 1; i >= 0; i--) {
+					if (CheckRow(i)) {
+						spawnOnRow(i);
+						test = true;
+						break;
 					}
 				}
 
-				for (int j = 0; j < ncol - 1; j++) {
-					if (numbers[i][j + 1].value == numbers[i][j].value) {
-						numbers[i][j].value *= 2;
-						numbers[i][j].clr++;
-						score += numbers[i][j].value;
-						numbers[i][j + 1].value = 0;
-						numbers[i][j + 1].clr = 0;
-					}
-				}
+			}
+			else if (kbd.KeyIsPressed(VK_DOWN)) {
+				cooldown = true;
+				test = false;
+				////////
 
-				k = -1;
 				for (int j = 0; j < ncol; j++) {
-					if (numbers[i][j].value != 0) {
-						std::swap(numbers[i][j], numbers[i][++k]);
+					int k = nrow;
+					for (int i = nrow - 1; i >= 0; i--) {
+						if (numbers[i][j].value != 0) {
+							std::swap(numbers[i][j], numbers[--k][j]);
+						}
+					}
+					for (int i = nrow - 1; i > 0; i--) {
+						if (numbers[i][j].value == numbers[i - 1][j].value) {
+							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
+							score += numbers[i][j].value;
+							numbers[i - 1][j].value = 0;
+							numbers[i - 1][j].clr = 0;
+						}
+					}
+					k = nrow;
+					for (int i = nrow - 1; i >= 0; i--) {
+						if (numbers[i][j].value != 0) {
+							std::swap(numbers[i][j], numbers[--k][j]);
+						}
+					}
+				}
+
+				////////
+				for (int i = 0; i < nrow; i++) {
+					if (CheckRow(i)) {
+						spawnOnRow(i);
+						test = true;
+						break;
 					}
 				}
 			}
-			////
-			for (int j = ncol - 1; j >= 0; j--) {
-				if (CheckCol(j)) {
-					spawnOnCol(j);
-					test = true;
-					break;
+			else if (kbd.KeyIsPressed(VK_LEFT)) {
+				cooldown = true;
+				test = false;
+				////
+				for (int i = 0; i < nrow; i++) {
+					int k = -1;
+					for (int j = 0; j < ncol; j++) {
+						if (numbers[i][j].value != 0) {
+							std::swap(numbers[i][j], numbers[i][++k]);
+						}
+					}
+
+					for (int j = 0; j < ncol - 1; j++) {
+						if (numbers[i][j + 1].value == numbers[i][j].value) {
+							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
+							score += numbers[i][j].value;
+							numbers[i][j + 1].value = 0;
+							numbers[i][j + 1].clr = 0;
+						}
+					}
+
+					k = -1;
+					for (int j = 0; j < ncol; j++) {
+						if (numbers[i][j].value != 0) {
+							std::swap(numbers[i][j], numbers[i][++k]);
+						}
+					}
 				}
-			}
-			
-		}
-		else if (kbd.KeyIsPressed(VK_RIGHT)) {
-			cooldown = true;
-			test = false;
-			////
-			for (int i = 0; i < nrow; i++) {
-				int k = ncol;
+				////
 				for (int j = ncol - 1; j >= 0; j--) {
-					if (numbers[i][j].value != 0) {
-						std::swap(numbers[i][j], numbers[i][--k]);
+					if (CheckCol(j)) {
+						spawnOnCol(j);
+						test = true;
+						break;
 					}
 				}
 
-				for (int j = ncol - 1; j > 0; j--) {
-					if (numbers[i][j - 1].value == numbers[i][j].value) {
-						numbers[i][j].value *= 2;
-						numbers[i][j].clr++;
-						score += numbers[i][j].value;
-						numbers[i][j - 1].value = 0;
-						numbers[i][j - 1].clr = 0;
+			}
+			else if (kbd.KeyIsPressed(VK_RIGHT)) {
+				cooldown = true;
+				test = false;
+				////
+				for (int i = 0; i < nrow; i++) {
+					int k = ncol;
+					for (int j = ncol - 1; j >= 0; j--) {
+						if (numbers[i][j].value != 0) {
+							std::swap(numbers[i][j], numbers[i][--k]);
+						}
+					}
+
+					for (int j = ncol - 1; j > 0; j--) {
+						if (numbers[i][j - 1].value == numbers[i][j].value) {
+							numbers[i][j].value *= 2;
+							numbers[i][j].clr++;
+							score += numbers[i][j].value;
+							numbers[i][j - 1].value = 0;
+							numbers[i][j - 1].clr = 0;
+						}
+					}
+
+					k = ncol;
+					for (int j = ncol - 1; j >= 0; j--) {
+						if (numbers[i][j].value != 0) {
+							std::swap(numbers[i][j], numbers[i][--k]);
+						}
 					}
 				}
-
-				k = ncol;
-				for (int j = ncol - 1; j >= 0; j--) {
-					if (numbers[i][j].value != 0) {
-						std::swap(numbers[i][j], numbers[i][--k]);
+				////
+				for (int j = 0; j < ncol; j++) {
+					if (CheckCol(j)) {
+						spawnOnCol(j);
+						test = true;
+						break;
 					}
 				}
 			}
-			////
-			for (int j = 0; j < ncol; j++) {
-				if (CheckCol(j)) {
-					spawnOnCol(j);
-					test = true;
-					break;
-				}
-			}
-		}
-		
-		if (score > highscore) {
-			highscore = score;
-		}
-		gameover = !test;
 
+			if (score > highscore) {
+				highscore = score;
+			}
+			gameover = !test;
+		}
 	}
 }
 void Board::DrawCell(int x, int y, Color c)
@@ -275,6 +275,29 @@ void Board::spawnOnCol(int j)
 			spawned = true;
 		}
 	}
+}
+
+void Board::newGame()
+{
+	for (int i = 0; i < nrow; i++) {
+		for (int j = 0; j < ncol; j++) {
+			numbers[i][j].value = 0;
+			numbers[i][j].clr = 0;
+			
+		}
+	}
+
+	score = 0;
+
+	int i1 = rowrange(rng);
+	int j1 = colrange(rng);
+	numbers[i1][j1].value = 2;
+	numbers[i1][j1].clr = 1;
+
+	i1 = rowrange(rng);
+	j1 = colrange(rng);
+	numbers[i1][j1].value = 2;
+	numbers[i1][j1].clr = 1;
 }
 
 

@@ -16,6 +16,7 @@ public:
 	bool CheckCol(int j);
 	void spawnOnRow(int i);
 	void spawnOnCol(int j);
+	void newGame();
 public:
 	static constexpr int textratio = 25; //a digit its 4 cells wide + 1 cell spacing so 25 text cells allows 5 digits per board cell 
 	bool cooldown = false;
