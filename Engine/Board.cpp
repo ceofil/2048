@@ -187,7 +187,10 @@ void Board::Update(Keyboard & kbd)
 				}
 			}
 		}
-
+		
+		if (score > highscore) {
+			highscore = score;
+		}
 		gameover = !test;
 
 	}
