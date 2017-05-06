@@ -12,20 +12,7 @@ Board::Board(Graphics & gfx, Text& txt, int xboard_in, int yboard_in, int cellWi
 	rowrange(0, nrow-1),
 	colrange(0, ncol-1)
 {
-	for (int i = 0; i < nrow; i++) {
-		for (int j = 0; j < ncol; j++) {
-			numbers[i][j].value = 0;
-		}
-	}
-	int i1 = rowrange(rng);
-	int j1 = colrange(rng);
-	numbers[i1][j1].value = 2;
-	numbers[i1][j1].clr = 1;
-	
-	i1 = rowrange(rng);
-	j1 = colrange(rng);
-	numbers[i1][j1].value = 2;
-	numbers[i1][j1].clr = 1;
+	newGame();
 }
 void Board::Update(Keyboard & kbd)
 {
@@ -40,12 +27,14 @@ void Board::Update(Keyboard & kbd)
 				cooldown = true;
 				for (int j = 0; j < ncol; j++) {
 					int k = -1;
+					//moves all not empty cells 
 					for (int i = 0; i < nrow; i++) {
 						if (numbers[i][j].value != 0) {
 
 							std::swap(numbers[i][j], numbers[++k][j]);
 						}
 					}
+					//merges matching cells
 					for (int i = 0; i < nrow - 1; i++) {
 						if (numbers[i][j].value == numbers[i + 1][j].value) {
 							numbers[i][j].value *= 2;
@@ -55,6 +44,7 @@ void Board::Update(Keyboard & kbd)
 							numbers[i + 1][j].clr = 0;
 						}
 					}
+					//moves all not empty cells again
 					k = -1;
 					for (int i = 0; i < nrow; i++) {
 						if (numbers[i][j].value != 0) {
@@ -214,6 +204,7 @@ void Board::DrawGrid(int thick, Color c)
 	for (int i = 0; i <= nrow; i++) {
 		gfx.DrawRectPoints(xboard, yboard + i*cellHeight - thick, xboard + ncol*cellWidth, yboard + i*cellHeight + thick, c);
 	}
+	//rounded corners
 	gfx.DrawCircle(xboard, yboard, thick, c);
 	gfx.DrawCircle(xboard+ncol*cellWidth, yboard, thick, c);
 	gfx.DrawCircle(xboard, yboard+nrow*cellHeight, thick, c);
@@ -229,7 +220,7 @@ void Board::DrawNR(Text & txt, Color c)
 			if (numbers[i][j].value != 0) {
 				DrawCell(j, i, Color(colors[numbers[i][j].clr][0], colors[numbers[i][j].clr][1], colors[numbers[i][j].clr][2]));
 				int digits = txt.nrcifre(numbers[i][j].value);
-				int xpoz = j*textratio + textratio / 2 - digits * 5 / 2 + 1; //same 
+				int xpoz = j*textratio + textratio / 2 - digits * 5 / 2 + 1; // cuz its digits*5 x 7
 				txt.drawint(numbers[i][j].value, xpoz, ypoz, c);
 			}
 			else {
@@ -250,6 +241,8 @@ void Board::DrawScore(Text & txt, Color c)
 		txt.drawstring("press enter", ncol*textratio + textratio / 2, 3 * textratio + textratio / 2 - 3 + 9, c);
 	}
 }
+
+
 
 bool Board::CheckRow(int i)
 {

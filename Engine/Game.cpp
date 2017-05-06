@@ -52,11 +52,9 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-
-		brd.DrawNR(text, Colors::White);
-		brd.DrawGrid(5, Colors::White);
-		brd.DrawScore(text, Colors::White);
-	
+	brd.DrawNR(text, Colors::White);
+	brd.DrawGrid(5, Colors::White);
+	brd.DrawScore(text, Colors::White);
 }
 
 
