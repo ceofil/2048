@@ -194,6 +194,11 @@ void Board::Update(Keyboard & kbd)
 			gameover = !test;
 		}
 	}
+	else {
+		if (kbd.KeyIsPressed(VK_RETURN)) {
+			newGame();
+		}
+	}
 }
 void Board::DrawCell(int x, int y, Color c)
 {
@@ -231,6 +236,18 @@ void Board::DrawNR(Text & txt, Color c)
 				DrawCell(j, i, Color(colors[0][0], colors[0][1], colors[0][2]));
 			}
 		}
+	}
+}
+
+void Board::DrawScore(Text & txt, Color c)
+{
+	txt.drawstring("score", ncol*textratio + textratio / 2, textratio / 2 - 3, c);
+	txt.drawint(score, ncol*textratio + textratio / 2, 1 * textratio - 3, c);
+	txt.drawstring("best", ncol*textratio + textratio / 2, 2 * textratio + textratio / 2 - 3, c);
+	txt.drawint(highscore, ncol*textratio + textratio / 2, 3 * textratio - 3, c);
+	if (gameover) {
+		txt.drawstring("game over", ncol*textratio + textratio / 2, 3 * textratio + textratio / 2 - 3, c);
+		txt.drawstring("press enter", ncol*textratio + textratio / 2, 3 * textratio + textratio / 2 - 3 + 9, c);
 	}
 }
 
@@ -279,6 +296,7 @@ void Board::spawnOnCol(int j)
 
 void Board::newGame()
 {
+	gameover = false;
 	for (int i = 0; i < nrow; i++) {
 		for (int j = 0; j < ncol; j++) {
 			numbers[i][j].value = 0;

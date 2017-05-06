@@ -45,8 +45,6 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	
-
 	brd.Update(wnd.kbd);
 }
 
@@ -54,13 +52,11 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	if (!brd.gameover) {
+
 		brd.DrawNR(text, Colors::White);
 		brd.DrawGrid(5, Colors::White);
-	}
-	else{
-		gfx.DrawCircle(400, 300, 100, Colors::Red);
-	}
+		brd.DrawScore(text, Colors::White);
+	
 }
 
 

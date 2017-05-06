@@ -12,11 +12,13 @@ public:
 	void DrawCell(int x, int y, Color c);
 	void DrawGrid(int thick, Color c);
 	void DrawNR(Text& txt, Color c);
+	void DrawScore(Text& txt, Color c);
 	bool CheckRow(int i);
 	bool CheckCol(int j);
 	void spawnOnRow(int i);
 	void spawnOnCol(int j);
 	void newGame();
+
 public:
 	static constexpr int textratio = 25; //a digit its 4 cells wide + 1 cell spacing so 25 text cells allows 5 digits per board cell 
 	bool cooldown = false;
